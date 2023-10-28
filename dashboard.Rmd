@@ -42,7 +42,7 @@ instacart_df =
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Total Number of Items of Each Department
+### Distribution of Order Hour of Day for Each Department
 
 ```{r}
 instacart_df |> 
@@ -54,18 +54,14 @@ instacart_df |>
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Distribution of Order Hour of Day for Each Department
+### Total Number of Items of Each Department
 
 ```{r}
 instacart_df |> 
-  group_by(department_id, department) |>
-  summarize(n_items = n()) |> 
-  mutate(
-    department = as.factor(department),
-    text_label = str_c("Department ID: ", department_id)
-    ) |> 
-  plot_ly(y =~n_items, x=~reorder(department, +n_items), text =~text_label,
-          type = "scatter", mode = "markers", alpha = .5)
+  count(department) |>
+  mutate(department = fct_reorder(department, n)) |> 
+  plot_ly( x=~department, y=~n, color = ~department,
+           type = "bar", colors = "viridis")
 ```
 
 ### Fluctuation of Number of Orders Among the Day
