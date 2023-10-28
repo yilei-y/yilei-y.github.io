@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This website contains information on some basic academic-related experience.
+This website contains information on some basic academic-related experience. In the site navigation, you can gain access to the resume and flexdashboard of the `Instacart` dataset.
 
 
 Link to some useful links:
