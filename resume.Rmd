@@ -3,3 +3,6 @@ title: "Resume"
 author: "Yilei Yang"
 output: html_document
 ---
+
+
+![](files/YileiYangResume.jpg)
