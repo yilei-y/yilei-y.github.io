@@ -1,6 +1,5 @@
 ---
-title: "index"
-author: "Yilei Yang"
+title: "Introduction"
 output: html_document
 ---
 
@@ -8,3 +7,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+This website contains information on some basic academic-related experience.
+
+
+Link to some useful links:
+
+* [My Academic and Professional Experience](resume.html)
+
+* [Github](https://github.com/yilei-y)
