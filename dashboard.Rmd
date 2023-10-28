@@ -59,11 +59,13 @@ instacart_df |>
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### Distribution of Order Hour of Day for Each Department
 
 ```{r}
 instacart_df |> 
-  group_by(department) 
+  group_by(department) |> 
+  plot_ly(x = ~department, y = ~order_hour_of_day, color = ~department,
+          type = "box", colors = "viridis")
 ```
 
 ### Chart C
