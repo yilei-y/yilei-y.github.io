@@ -4,19 +4,63 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
+    source: embed
 ---
 
 ```{r setup, include=FALSE}
+library(tidyverse)
+library(plotly)
+library(p8105.datasets)
 library(flexdashboard)
+data("instacart")
+
+knitr::opts_chunk$set(
+    echo = TRUE,
+    warning = FALSE,
+    fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+library(p8105.datasets)
+
+theme_set(theme_minimal() + theme(legend.position = "right"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
 ```
+
+```{r}
+data(instacart)
+instacart_df = 
+  instacart |> 
+  select(
+    order_id, product_id, order_number, order_hour_of_day, product_name, aisle, department, department_id
+  )
+
+```
+
+
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### Number of Itmes of Each Department of Instacart
 
 ```{r}
-
+instacart_df |> 
+  group_by(department, department_id) |>
+  summarize(n_items = n()) |> 
+  mutate(
+    text_label = str_c("Department ID: ", department_id),
+    ) |> 
+  arrange(department_id) |> 
+  plot_ly(y =~n_items, x=~department, text =~text_label,
+          type = "scatter", mode = "markers", alpha = .5, colors = "viridis")
 ```
 
 Column {data-width=350}
