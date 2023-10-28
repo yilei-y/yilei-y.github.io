@@ -42,7 +42,7 @@ instacart_df =
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Number of Itmes of Each Department of Instacart
+### Total Number of Items of Each Department
 
 ```{r}
 instacart_df |> 
@@ -68,9 +68,12 @@ instacart_df |>
           type = "scatter", mode = "markers", alpha = .5)
 ```
 
-### Chart C
+### Fluctuation of Number of Orders Among the Day
 
 ```{r}
-
+instacart_df |> 
+  group_by(order_hour_of_day)|> 
+  summarise(n_order = n_distinct(order_id))|> 
+  plot_ly(x = ~order_hour_of_day, y = ~n_order, type = 'scatter', mode = 'lines')
 ```
 
