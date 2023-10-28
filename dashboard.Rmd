@@ -4,7 +4,7 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
-    source: embed
+    source_code: embed
 ---
 
 ```{r setup, include=FALSE}
@@ -14,13 +14,6 @@ library(p8105.datasets)
 library(flexdashboard)
 data("instacart")
 
-knitr::opts_chunk$set(
-    echo = TRUE,
-    warning = FALSE,
-    fig.width = 8, 
-  fig.height = 6,
-  out.width = "90%"
-)
 library(p8105.datasets)
 
 theme_set(theme_minimal() + theme(legend.position = "right"))
@@ -53,14 +46,14 @@ Column {data-width=650}
 
 ```{r}
 instacart_df |> 
-  group_by(department, department_id) |>
+  group_by(department_id, department) |>
   summarize(n_items = n()) |> 
   mutate(
-    text_label = str_c("Department ID: ", department_id),
+    department = as.factor(department),
+    text_label = str_c("Department ID: ", department_id)
     ) |> 
-  arrange(department_id) |> 
-  plot_ly(y =~n_items, x=~department, text =~text_label,
-          type = "scatter", mode = "markers", alpha = .5, colors = "viridis")
+  plot_ly(y =~n_items, x=~reorder(department, +n_items), text =~text_label,
+          type = "scatter", mode = "markers", alpha = .5)
 ```
 
 Column {data-width=350}
@@ -69,7 +62,8 @@ Column {data-width=350}
 ### Chart B
 
 ```{r}
-
+instacart_df |> 
+  group_by(department) 
 ```
 
 ### Chart C
